@@ -13,7 +13,6 @@ export default function ProductScreen({ params }) {
   }
 
   const addToCartHandler = () => {
-    // console.log("add to cart clicked")
     dispatch({ type: "CARD_ADD_ITEM", payload: { ...product, quantity: 1 } });
   };
 
