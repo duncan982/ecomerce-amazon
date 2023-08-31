@@ -10,7 +10,8 @@ export default function ProductItem({ product }) {
             alt={product.name}
             className="rounded shadow"
             width={600}
-            height={400}
+          height={400}
+          // layout="responsive"
           />
       </Link>
       <div className="flex flex-col items-center justify-center p-5">
