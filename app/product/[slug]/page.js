@@ -13,7 +13,9 @@ export default function ProductScreen({ params }) {
   }
 
   const addToCartHandler = () => {
-    dispatch({ type: "CARD_ADD_ITEM", payload: { ...product, quantity: 1 } });
+    const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)
+    const quantity = existItem ? existItem.quantity + 1 : 1
+    dispatch({ type: "CARD_ADD_ITEM", payload: { ...product, quantity } });
   };
 
   return (
