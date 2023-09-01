@@ -2,7 +2,6 @@
 import {useContext} from "react"
 import { Store } from '@/app/contexts/Store';
 import Link from "next/link";
-import Cart from './Cart';
 export default function Navbar() {
   const { state, dispatch } = useContext(Store)
   const { cart } = state

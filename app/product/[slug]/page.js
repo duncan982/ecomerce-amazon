@@ -20,7 +20,7 @@ export default function ProductScreen({ params }) {
       alert(`Sorry. At the moment you can only order maximum ${product.countInStock} pieces of this item!`)
    return
     }
-    dispatch({ type: "CARD_ADD_ITEM", payload: { ...product, quantity } });
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
   };
 
   return (
