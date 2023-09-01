@@ -3,8 +3,10 @@ import { Store } from '@/app/contexts/Store';
 import { useContext } from "react";
 import Link from 'next/link';
 import Image from 'next/image';
-import {XCircleIcon} from "@heroicons/react/outline"
+import {XCircleIcon} from "@heroicons/react/outline";
+import { useRouter } from "next/navigation"
 export default function Cart() {
+  const router = useRouter()
   const { state, dispatch } = useContext(Store)
   const { cart: { cartItems } } = state
   const removeItemHandler = (item) => {
@@ -57,7 +59,25 @@ export default function Cart() {
                   ))}
                 </tbody>
               </table>
+             
           </div>
+           <div className="card p-5">
+        <ul>
+          <li>
+            <div className="pb-3 text-xl">SubToTal ({cartItems.reduce((a, c) => a + c.quantity, 0)})
+              : ${cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+              
+            </div>
+          </li>
+                <li>
+                  <button onClick={() => router.push('/shipping')} className="primary-button w-full">
+Checkout
+                  </button>
+          </li>
+        </ul>
+
+
+      </div>
         </div>
       )}
       </div>
