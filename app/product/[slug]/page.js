@@ -15,6 +15,11 @@ export default function ProductScreen({ params }) {
   const addToCartHandler = () => {
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)
     const quantity = existItem ? existItem.quantity + 1 : 1
+
+    if(product.countInStock < quantity){
+      alert(`Sorry. At the moment you can only order maximum ${product.countInStock} pieces of this item!`)
+   return
+    }
     dispatch({ type: "CARD_ADD_ITEM", payload: { ...product, quantity } });
   };
 
