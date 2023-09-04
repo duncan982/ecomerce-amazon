@@ -13,6 +13,11 @@ export default function Cart() {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
 
+  const upDateCartHandler = (item, qty) => {
+    const quantity = Number(qty);
+    dispatch({type: "CART_ADD_ITEM", payload: {...item, quantity }})
+  }
+
   return (
 
     <div >
@@ -47,7 +52,14 @@ export default function Cart() {
                           {/* </a> */}
                         </Link>
                       </td>
-                      <td className='p-5 text-right'>{item.quantity}</td>
+                      <td className='p-5 text-right'>
+                        <select value={item.quantity} onChange={(e) => upDateCartHandler(item, e.target.value)}>
+                          {[...Array(item.countInStock).keys()].map((x) => (
+                          <option key={x+1} value={x+1}>
+                            {x+1}
+                          </option>))}
+                        </select>
+                      </td>
                       <td className='p-5 text-right'>{item.price}</td>
                       <td className='p-5 text-right'>
                         <button onClick={() =>{removeItemHandler(item)}}>
