@@ -1,16 +1,17 @@
-'use client'
+"use client"
 import { createContext, useReducer } from 'react';
+import Cookies from 'js-cookie';
+
+export const Store = createContext();
 
 const initialState = {
-  cart: { cartItems: [] },
+  cart: Cookies.get('cart')
+    ? JSON.parse(Cookies.get('cart'))
+    : { cartItems: [] },
 };
 
-export const Store = createContext({ state: initialState, dispatch: () => null });
-
 function reducer(state, action) {
-  
   switch (action.type) {
-
     case 'CART_ADD_ITEM': {
       const newItem = action.payload;
       const existItem = state.cart.cartItems.find(
@@ -21,16 +22,16 @@ function reducer(state, action) {
             item.name === existItem.name ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
-      return { ...state, cart: { ...state.cart, cartItems} };
-      
+      Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
+      return { ...state, cart: { ...state.cart, cartItems } };
     }
-      
     case 'CART_REMOVE_ITEM': {
       const cartItems = state.cart.cartItems.filter(
         (item) => item.slug !== action.payload.slug
-      )
-      return {...state, cart: {...state.cart, cartItems}}
-      }
+      );
+      Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
+      return { ...state, cart: { ...state.cart, cartItems } };
+    }
     default:
       return state;
   }
@@ -39,5 +40,5 @@ function reducer(state, action) {
 export function StoreProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
-  return <Store.Provider value={ value }>{children}</Store.Provider>;
+  return <Store.Provider value={value}>{children}</Store.Provider>;
 }
