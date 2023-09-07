@@ -1,4 +1,4 @@
-import mongoose, { connections, mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const connection = {}
 
@@ -35,3 +35,5 @@ async function disconnect() {
 }
 const db = { connect, disconnect };
 export default db
+
+  
