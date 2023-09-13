@@ -5,13 +5,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {XCircleIcon} from "@heroicons/react/outline";
 import { useRouter } from "next/navigation"
-import dynamic from 'next/dynamic';
-function CartScreen() {
-// export default function CartScreen() {
+export default function Cart() {
   const router = useRouter()
   const { state, dispatch } = useContext(Store)
   const { cart: { cartItems } } = state
-  
   const removeItemHandler = (item) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
@@ -44,6 +41,7 @@ function CartScreen() {
                     <tr key={item.slug} className='border-b'>
                       <td>
                         <Link href={`/product/${item.slug}`} className="flex items-center">
+                          {/* <a className="flex items-center"> */}
                             <Image
                               src={item.image}
                               alt={item.name}
@@ -51,6 +49,7 @@ function CartScreen() {
                               height={50}/>
                             &nbsp;
                             {item.name}
+                          {/* </a> */}
                         </Link>
                       </td>
                       <td className='p-5 text-right'>
@@ -96,5 +95,3 @@ Checkout
       </div>
   )
 }
-
-export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
